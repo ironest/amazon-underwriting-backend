@@ -1,7 +1,7 @@
 const { Schema } = require("mongoose");
 
 const LinkSchema = new Schema ({
-        title: {
+        nameofdoc: {
             type: String,
             required: true
         },

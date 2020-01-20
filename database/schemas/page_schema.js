@@ -4,7 +4,7 @@ const DocSchema = require("./doc_schema")
 // const pages = ["Childcare", "Home based Business", "Personal accident"];
 
 const PageSchema = new Schema ({
-    page: {
+    pagename: {
         type: String,
         required: true
     },

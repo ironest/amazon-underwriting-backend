@@ -1,15 +1,16 @@
 const { Schema } = require("mongoose");
-const LinkSchema = require("./link_schema")
-
-// const Sections = ["Document Downloads", "Application Forms", "Claim Forms", "Useful links"]
+// const LinkSchema = require("./link_schema")
 
 const DocSchema = new Schema ({
         name: {
             type: String,
             required: true
         },
-        links: [LinkSchema]
+        links: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "link"
+        }
     })
      
 
-module.exports = DocSchema
+module.exports = DocSchema;
