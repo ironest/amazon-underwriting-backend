@@ -4,7 +4,11 @@ const LinkController = require("../controllers/info_controller");
 
 router.get("/", LinkController.index);
 
-// Not sure if these have to be provided
+/*
+    Not sure how safe is to be provide below endpoints
+    as there MUST be one and only one entry AT ANY TIME
+*/
+
 // router.post("/", LinkController.create);
 // router.get("/new", LinkController.make);
 // router.delete("/", LinkController.destroy);
