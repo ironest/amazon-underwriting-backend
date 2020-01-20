@@ -1,0 +1,28 @@
+{
+  "name": "amazon-underwriting-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage",
+    "seed": "node database/seeds",
+    "dev-server": "nodemon index.js",
+    "server": "forever -c \"nodemon --exitcrash -L\" index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ironest/amazon-underwriting-backend.git"
+  },
+  "author": "Alex Kentwell, Riccardo Carzaniga",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ironest/amazon-underwriting-backend/issues"
+  },
+  "homepage": "https://github.com/ironest/amazon-underwriting-backend#readme",
+  "dependencies": {
+    "celebrate": "^11.0.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.8.9"
+  }
+}
