@@ -1,1 +1,109 @@
+require("dotenv").config();
+
 require("./connect");
+
+const PageModel = require('./../database/models/page_model');
+
+const pages = [
+    {
+        name: "Childcare",
+        sections: [
+            {
+                name: "Document Downloads",
+                links: [
+                    {
+                        name: "Childcare Brochure",
+                        url: "https://www.amazonunderwriting.com.au/PDFs/DocDown/HOMEBiZinsBrochure_BD_17052019.pdf"
+                    },
+                    {
+                        name: "HomeBiz Brochure",
+                        url: "https://www.amazonunderwriting.com.au/PDFs/DocDown/HOMEBiZinsBrochure_BD_17052019.pdf"
+                    },
+                    {
+                        name: "Personal Accident Brochure",
+                        url: "https://www.amazonunderwriting.com.au/PDFs/DocDown/PASBrochure_17052019.pdf?p=1579522459038"
+                    },
+                    {
+                        name: "Important Information",
+                        url: "https://www.amazonunderwriting.com.au/important.html"
+                    }
+                ]
+            },
+            {
+                name: "Application Forms",
+                links: [
+                    {
+                        name: "Childcare Providers",
+                        url: "https://www.amazonunderwriting.com.au/PDFs/ApplicationForms/CC/AU%20CC%20Centre.pdf"
+                    },
+                    {
+                        name: "Play Centre Cafes",
+                        url: "https://www.amazonunderwriting.com.au/PDFs/ApplicationForms/CC/AU%20CC%20PlayCentre%20May%202019.pdf"
+                    },
+                    {
+                        name: "Childcare Property Owners",
+                        url: "https://www.amazonunderwriting.com.au/PDFs/ApplicationForms/CC/AU%20CC%20PropOwn.pdf"
+                    },
+                    {
+                        name: "Babysitters/Nanny's",
+                        url: "https://www.amazonunderwriting.com.au/PDFs/ApplicationForms/CC/AU%20CC%20Indiv.pdf"
+                    }
+                ]
+            },
+            {
+                name: "Claim Forms",
+                links: [
+                    {
+                        name: "Public Liability",
+                        url: "https://www.amazonunderwriting.com.au/PDFs/ClaimForms/Public%20Liability%20Claims.pdf"
+                    },
+                    {
+                        name: "Property",
+                        url: "https://www.amazonunderwriting.com.au/PDFs/ClaimForms/Gallagher%20Bassett%20Services%20Pty%20Ltd%20-%20Property%20Claim%20Form.pdf"
+                    },
+                    {
+                        name: "Personal Accident",
+                        url: "https://www.amazonunderwriting.com.au/PDFs/ClaimForms/Proclaim%20Personal%20Accident%20Claim%20Form%2005%2012.pdf"
+                    }
+                ]
+            },
+        ]
+    }
+]
+
+async function populateDB(){
+
+    await PageModel.deleteMany();
+    
+    for (let page of pages) {
+
+        let { name, sections } = page;
+
+        let pageResult = await PageModel.create({ name })
+            .catch(err => console.log(`Page creation returned: ${err}`))
+
+        for (let section of sections) {
+
+            let { name, links } = section;
+
+            pageResult.sections.push({ name });
+            await pageResult.save()
+                .catch(err => console.log(`Section creation returned: ${err}`))
+
+            let { length } = pageResult.sections;
+
+            for (let link of links) {
+                let { name, url } = link;
+
+                pageResult.sections[length - 1].links.push({ name, url })
+                await pageResult.save()
+                    .catch(err => console.log(`Link creation returned: ${err}`))
+            }
+        }
+    }
+}
+
+populateDB();
+
+
+
