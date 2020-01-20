@@ -1,37 +1,23 @@
-function create(req, res) {
-    //logic for creating a resource
-}
+const PageModel = require('../database/models/page_model')
 
-function index(req, res) {
+async function index(req, res) {
     //showed a list of all the resources
+
+    let pages = await PageModel.find()  // Extracting all the pages from the DB
+    res.json( pages )                   // Returns the data
+
 }
 
-function make(req, res) {
-    //shows the form to create the resource
-}
+async function show(req, res) {
+  // show a single resource
 
-function destroy(req, res) {
-    //deletes the resource
-}
+  let { id } = req.params     // Destructure the id off the params.
+  let page = await PageModel.findById(id);
+  res.json( page )            // render the 'book/show' and pass it the {book}
 
-function show(req, res) {
-    //show a single resource
-}
-
-function update(req, res) {
-    //updates the resource
-}
-
-function edit(req, res) {
-    //shows the form to edit the resource
 }
 
 module.exports = {
-    create,
     index,
-    make,
-    destroy,
-    show,
-    update,
-    edit
+    show
 }
