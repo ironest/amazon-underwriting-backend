@@ -1,5 +1,5 @@
 const { Schema } = require("mongoose");
-const DocSchema = require("./doc_schema")
+const SectionSchema = require("./section_schema")
 
 // const pages = ["Childcare", "Home based Business", "Personal accident"];
 
@@ -8,7 +8,7 @@ const PageSchema = new Schema ({
         type: String,
         required: true
     },
-    doc: [DocSchema]
+    section: [SectionSchema]
     })
      
 
