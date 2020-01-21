@@ -1,19 +1,15 @@
-const { Schema } = require("mongoose");
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const LinkSchema = new Schema ({
-        page: {
-            type: String,
-            // required: true
-        },
-        name: {
-            type: String,
-            required: true
-        },
-        url: {
-            type: String,
-            required: true
-        }
-    })
-     
+const LinkSchema = new Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  url: {
+    type: String,
+    required: true
+  }
+});
 
 module.exports = LinkSchema;
