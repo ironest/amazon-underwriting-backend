@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const LinkController = require("./../controllers/link_controller")
 
 const pageRoutes = require("./page_routes");
 const sectionRoutes = require("./section_routes");

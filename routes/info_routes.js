@@ -17,6 +17,4 @@ router.patch("/", LinkController.update);
 
 router.put("/", LinkController.update);
 
-router.get("/edit", LinkController.edit);
-
 module.exports = router;
