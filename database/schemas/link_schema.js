@@ -1,7 +1,11 @@
 const { Schema } = require("mongoose");
 
 const LinkSchema = new Schema ({
-        nameofdoc: {
+        page: {
+            type: String,
+            // required: true
+        },
+        name: {
             type: String,
             required: true
         },
