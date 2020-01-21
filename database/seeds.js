@@ -6,7 +6,7 @@ const PageModel = require('./../database/models/page_model');
 
 const pages = [
     {
-        name: "Childcare",
+        name: "Common",
         sections: [
             {
                 name: "Document Downloads",
@@ -30,6 +30,41 @@ const pages = [
                 ]
             },
             {
+                name: "Claim Forms",
+                links: [
+                    {
+                        name: "Public Liability",
+                        url: "https://www.amazonunderwriting.com.au/PDFs/ClaimForms/Public%20Liability%20Claims.pdf"
+                    },
+                    {
+                        name: "Property",
+                        url: "https://www.amazonunderwriting.com.au/PDFs/ClaimForms/Gallagher%20Bassett%20Services%20Pty%20Ltd%20-%20Property%20Claim%20Form.pdf"
+                    },
+                    {
+                        name: "Personal Accident",
+                        url: "https://www.amazonunderwriting.com.au/PDFs/ClaimForms/Proclaim%20Personal%20Accident%20Claim%20Form%2005%2012.pdf"
+                    }
+                ]
+            },
+            {
+                name: "Useful Links",
+                links: [
+                    {
+                        name: "National Insurance Brokers Association (NIBA)",
+                        url: "http://www.niba.com.au/"
+                    },
+                    {
+                        name: "Need a Broker",
+                        url: "http://www.needabroker.com.au/html/"
+                    }
+                ]
+            },
+        ]
+    },
+    {
+        name: "Childcare",
+        sections: [
+            {
                 name: "Application Forms",
                 links: [
                     {
@@ -49,24 +84,33 @@ const pages = [
                         url: "https://www.amazonunderwriting.com.au/PDFs/ApplicationForms/CC/AU%20CC%20Indiv.pdf"
                     }
                 ]
-            },
+            }
+        ]
+    },
+    {
+        name: "Personal Accident",
+        sections: [
             {
-                name: "Claim Forms",
+                name: "Application Forms",
                 links: [
                     {
-                        name: "Public Liability",
-                        url: "https://www.amazonunderwriting.com.au/PDFs/ClaimForms/Public%20Liability%20Claims.pdf"
+                        name: "Individual Personal Accident and/or Sickness",
+                        url: "https://www.amazonunderwriting.com.au/PDFs/ApplicationForms/PA/Amazon%20Underwriting%20Individual%20IPAS%20Application%20Form.pdf"
                     },
                     {
-                        name: "Property",
-                        url: "https://www.amazonunderwriting.com.au/PDFs/ClaimForms/Gallagher%20Bassett%20Services%20Pty%20Ltd%20-%20Property%20Claim%20Form.pdf"
+                        name: "Group Personal Accident and/or Sickness",
+                        url: "https://www.amazonunderwriting.com.au/PDFs/ApplicationForms/PA/Amazon%20Underwriting%20Group%20PAS%20Application%20Form.pdf"
                     },
                     {
-                        name: "Personal Accident",
-                        url: "https://www.amazonunderwriting.com.au/PDFs/ClaimForms/Proclaim%20Personal%20Accident%20Claim%20Form%2005%2012.pdf"
+                        name: "Voluntary Workers Personal Accident and/or Sickness",
+                        url: "https://www.amazonunderwriting.com.au/PDFs/ApplicationForms/PA/AmazonUnderwriting_VoluntaryWorkersPAS_ApplicationForm.pdf"
+                    },
+                    {
+                        name: "Journey Cover",
+                        url: "https://www.amazonunderwriting.com.au/PDFs/ApplicationForms/PA/Amazon%20Underwriting%20Journey%20Cover%20Application%20Form.pdf"
                     }
                 ]
-            },
+            }
         ]
     }
 ]
@@ -101,6 +145,10 @@ async function populateDB(){
             }
         }
     }
+
+    console.log("\nDatabase succesfully seeded!\n");
+    process.exit();
+
 }
 
 populateDB();
