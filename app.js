@@ -1,11 +1,13 @@
 const express = require("express");
-// const morgan = require("morgan");
+const methodOverride = require("method-override");
 const app = express();
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // app.use(morgan("combined"));
+
+app.use(methodOverride('_method', { methods: ['POST', 'GET'] }))
 
 app.use(require("./routes"));
 
