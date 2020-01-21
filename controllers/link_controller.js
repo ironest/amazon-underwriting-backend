@@ -23,19 +23,40 @@ function create(req, res) {
 
  async function index(req, res) {
    let link = await LinkModel.find()
-   res.json(link);
+   res.json(link); //change to react view later
  }
+// form for admin to change documents
+ async function make (req, res) {
+   //res.render() the document edit page/form
+ }
+
+async function show (req, res) {
+  let { id } = req.params
+  let link = await LinkModel.findById(id)
+  res.json(link)
+  // res.render() the specific document
+}
 
  async function destroy (req, res) {
   let { id } = req.params
   await LinkModel.findByIdAndRemove(id)
-  res.json("deleted");
+  res.json("deleted"); // change to react view later
+}
+
+async function update (req, res) {
+  let { page, name, url} = req.body
+  let { id } = req.params
+  await LinkModel.findByIdAndUpdate(id, {page, name, url})
+  res.json("success");
+  // res.render() the admin page
 }
 
   module.exports = {
     create,
     index,
-    destroy
+    show,
+    destroy,
+    update
   }
 
   
