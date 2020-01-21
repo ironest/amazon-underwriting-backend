@@ -3,6 +3,35 @@ require("dotenv").config();
 require("./connect");
 
 const PageModel = require('./../database/models/page_model');
+const InfoModel = require('./../database/models/info_model');
+
+const contacts = {
+    footer_info: {
+      website: {
+        name: "Amazon Underwriting Pty Ltd",
+        url: "https://www.amazonunderwriting.com.au/index.html"
+      },
+      address: "52 Chisholm Street, Darlinghurst NSW 2010",
+      AFSL: "482029",
+      ABN: "17 605 879 507"
+    },
+    childcare_info: {
+      tel: "(02) 9357 1798",
+      email: "gida@amazonunderwriting.com.au"
+    },
+    hbb_info: {
+      tel: "(02) 9357 1798 (press line 2)",
+      email: "info@amazonunderwriting.com.au"
+    },
+    accident_info: {
+      tel: "(02) 9357 1798",
+      email: "toni@amazonunderwriting.com.au"
+    },
+    contact_info: {
+      tel: "+61 2 9357 1798",
+      email: "info@amazonunderwriting.com.au"
+    }
+  }
 
 const pages = [
     {
@@ -117,8 +146,12 @@ const pages = [
 
 async function populateDB(){
 
+    await InfoModel.deleteMany();
     await PageModel.deleteMany();
     
+    let infoResult = await InfoModel.create(contacts)
+        .catch(err => console.log(`InfoModel creation returned: ${err}`));
+
     for (let page of pages) {
 
         let { name, sections } = page;
