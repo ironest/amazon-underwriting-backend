@@ -116,7 +116,5 @@ module.exports = {
     create,
     show,
     destroy,
-    show,
     update,
-    edit
 }
