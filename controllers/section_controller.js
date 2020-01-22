@@ -1,27 +1,58 @@
-function create(req, res) {
-    //logic for creating a resource
+const PageModel = require("./../database/models/page_model");
+const {getMetaDataSubDocument} = require("../utility/pageDoc");
+
+async function show (req, res) {
+  let { id } = req.params;
+  let pageDoc;
+
+  try {
+    pageDoc = await PageModel.findOne({"sections._id": id });
+  } catch (error) {
+    return res.status(500).json({ error : error.message });
+  }
+
+  if (!pageDoc) { 
+    return res.status(404).json({ error : "Section doesn't exist" });
+  };
+
+  let {subDoc: sectionDoc} = getMetaDataSubDocument([pageDoc], id);
+
+  res.json(sectionDoc)
 }
 
-function index(req, res) {
-    //showed a list of all the resources
-}
+async function update(req, res) {
+  //updates the resource
 
-function destroy(req, res) {
-    //deletes the resource
-}
+  let { id } = req.params  // Destructure the id off the params.
+  let { name } = req.body // Destructure infos off req.body
 
-function show(req, res) {
-    //show a single resource
-}
+  let pageDoc;
 
-function update(req, res) {
-    //updates the resource
+  try {
+    pageDoc = await PageModel.findOne({"sections._id": id });
+  } catch (error) {
+    return res.status(500).json({ error : error.message });
+  }
+
+  if (!pageDoc) { 
+    return res.status(404).json({ error : "Section doesn't exist" });
+  };
+
+  // let linkDoc = getSubDocument([pageDoc], id);
+  let {subDoc: sectionDoc} = getMetaDataSubDocument([pageDoc], id);
+
+  try {
+    sectionDoc.name = name;
+    pageDoc.save();
+  } catch (error) {
+    return res.status(500).json({ error : error.message });
+  }
+
+  res.redirect(`/sections/${id}`);
+
 }
 
 module.exports = {
-    create,
-    index,
-    destroy,
     show,
     update,
 }

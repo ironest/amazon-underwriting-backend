@@ -2,12 +2,6 @@ const express = require("express");
 const router = express.Router();
 const SectionController = require("../controllers/section_controller");
 
-router.get("/", SectionController.index);
-
-router.post("/", SectionController.create);
-
-router.delete("/:id", SectionController.destroy);
-
 router.patch("/:id", SectionController.update);
 
 router.put("/:id", SectionController.update);
