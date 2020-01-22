@@ -98,7 +98,8 @@ async function update(req, res) {
     return res.status(404).send("Link not found");
   };
 
-  let linkDoc = getSubDocument([pageDoc], id);
+  // let linkDoc = getSubDocument([pageDoc], id);
+  let {subDoc: linkDoc} = getMetaDataSubDocument([pageDoc], id);
 
   try {
     linkDoc.name = link.name;
