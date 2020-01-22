@@ -9,11 +9,11 @@ async function create(req, res) {
     try {
       pageDoc = await PageModel.findOne({"sections._id": sectionId });
     } catch (error) {
-      return res.status(500).send(`{ error : ${error} }`);
+      return res.status(500).json({ error : error.message });
     }
 
     if (!pageDoc) { 
-      return res.status(404).send(`{ error : "Section doesn't exist" }`);
+      return res.status(404).json({ error : "Section doesn't exist" });
     };
 
     // let section = getSubDocument([pageDoc], sectionId);
@@ -25,7 +25,7 @@ async function create(req, res) {
       linkDoc = section.links[section.links.length - 1];
       pageDoc.save();
     } catch (error) {
-      return res.status(500).send(`{ error : ${error} }`);
+      return res.status(500).json({ error : error.message });
     }
 
     res.json(linkDoc)
@@ -39,11 +39,11 @@ async function show (req, res) {
   try {
     pageDoc = await PageModel.findOne({"sections.links._id": id });
   } catch (error) {
-    return res.status(500).send(`{ error : ${error} }`);
+    return res.status(500).json({ error : error.message });
   }
 
   if (!pageDoc) { 
-    return res.status(404).send(`{ error : "Link doesn't exist" }`);
+    return res.status(404).json({ error : "Link doesn't exist" });
   };
 
   // let linkDoc = getSubDocument([pageDoc], id);
@@ -61,11 +61,11 @@ async function show (req, res) {
   try {
     pageDoc = await PageModel.findOne({"sections.links._id": id });
   } catch (error) {
-    return res.status(500).send(`{ error : ${error} }`);
+    return res.status(500).json({ error : error.message });
   }
 
   if (!pageDoc) { 
-    return res.status(404).send(`{ error : "Link doesn't exist" }`);
+    return res.status(404).json({ error : "Link doesn't exist" });
   };
 
   let linkMetaData = getMetaDataSubDocument([pageDoc], id);
@@ -75,7 +75,7 @@ async function show (req, res) {
     linkDoc = parentDoc.links.splice(subDocIdx, 1);
     pageDoc.save();
   } catch (error) {
-    return res.status(500).send(`{ error : ${error} }`);
+    return res.status(500).json({ error : error.message });
   }
 
   res.json(...linkDoc)
@@ -91,11 +91,11 @@ async function update(req, res) {
   try {
     pageDoc = await PageModel.findOne({"sections.links._id": id });
   } catch (error) {
-    return res.status(500).send(`{ error : ${error} }`);
+    return res.status(500).json({ error : error.message });
   }
 
   if (!pageDoc) { 
-    return res.status(404).send(`{ error : "Link doesn't exist" }`);
+    return res.status(404).json({ error : "Link doesn't exist" });
   };
 
   // let linkDoc = getSubDocument([pageDoc], id);
@@ -106,7 +106,7 @@ async function update(req, res) {
     linkDoc.url = link.url;
     pageDoc.save();
   } catch (error) {
-    return res.status(500).send(`{ error : ${error} }`);
+    return res.status(500).json({ error : error.message });
   }
 
   res.json(linkDoc)
