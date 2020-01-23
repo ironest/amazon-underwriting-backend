@@ -23,7 +23,7 @@ async function create(req, res) {
     try {
       section.links.push(link);
       linkDoc = section.links[section.links.length - 1];
-      pageDoc.save();
+      await pageDoc.save();
     } catch (error) {
       return res.status(500).json({ error : error.message });
     }
@@ -74,7 +74,7 @@ async function show (req, res) {
   try {
     let { parentDoc, subDocIdx } = linkMetaData;
     linkDoc = parentDoc.links.splice(subDocIdx, 1);
-    pageDoc.save();
+    await pageDoc.save();
   } catch (error) {
     return res.status(500).json({ error : error.message });
   }
@@ -106,7 +106,7 @@ async function update(req, res) {
   try {
     linkDoc.name = link.name;
     linkDoc.url = link.url;
-    pageDoc.save();
+    await pageDoc.save();
   } catch (error) {
     return res.status(500).json({ error : error.message });
   }

@@ -180,8 +180,8 @@ async function populateDB(){
         .catch(err => console.log(`News creation returned: ${err}`))
     }
     
-    let infoResult = await InfoModel.create(contacts)
-        .catch(err => console.log(`InfoModel creation returned: ${err}`));
+    await InfoModel.create(contacts)
+      .catch(err => console.log(`InfoModel creation returned: ${err}`));
 
     for (let page of pages) {
 

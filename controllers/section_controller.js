@@ -43,7 +43,7 @@ async function update(req, res) {
 
   try {
     sectionDoc.name = name;
-    pageDoc.save();
+    await pageDoc.save();
   } catch (error) {
     return res.status(500).json({ error : error.message });
   }
