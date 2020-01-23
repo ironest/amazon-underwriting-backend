@@ -4,6 +4,31 @@ require("./connect");
 
 const PageModel = require('./../database/models/page_model');
 const InfoModel = require('./../database/models/info_model');
+const NewsModel = require('./../database/models/news_model');
+
+const news = [
+  {
+    period: "201912",
+    title: "Odio morbi quis!",
+    paragraph: "Metus dictum at tempor commodo ullamcorper a lacus. Sed adipiscing diam donec adipiscing. Odio morbi quis commodo odio. Habitant morbi tristique senectus et netus et malesuada fames ac. Viverra vitae congue eu consequat ac felis",
+    button: "Follow up",
+    link: "https://au.yahoo.com/"
+  },
+  {
+    period: "202001",
+    title: "Consectetur adipiscing elit!",
+    paragraph: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    button: "Check online!",
+    link: "https://www.facebook.com/"
+  },
+  {
+    period: "202002",
+    title: "New working relationship!",
+    paragraph: "The Amazon Underwriting team are very pleased to share the news of our latest working relationship! Insurx will assist us in continuing to deliver the highest standard of service for our clients.",
+    button: "Read More",
+    link: "https://www.linkedin.com/company/insurx-tpa/"
+  },
+];
 
 const contacts = {
     footer_info: {
@@ -148,6 +173,12 @@ async function populateDB(){
 
     await InfoModel.deleteMany();
     await PageModel.deleteMany();
+    await NewsModel.deleteMany();
+
+    for (let post of news) {
+      await NewsModel.create( post )
+        .catch(err => console.log(`News creation returned: ${err}`))
+    }
     
     let infoResult = await InfoModel.create(contacts)
         .catch(err => console.log(`InfoModel creation returned: ${err}`));
