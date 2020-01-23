@@ -1,40 +1,114 @@
 # amazon-underwriting-backend
 
-### Setup a (dev) environment:
+### Getting started:
 
-Create a `.env` file containing
-* `DB_HOST=mongodb://localhost/auw-dev`
-* `PORT=3000`
+1. Clone the repository: `git clone https://github.com/ironest/amazon-underwriting-backend.git`
 
+2. Create a `.env` file containing
+   * `DB_HOST=mongodb://localhost/auw-dev`
+   * `PORT=3000`
+
+3. Start the project: `npm start`
 ---
 
 ### API Documentation:
 
-**Show Link**
+**Pages of the website**
 
-Returns json data about a single link.
+| Purpose            | Method           | Endpoint        | URL Params                      | Data Params                      |
+|--------------------|------------------|-----------------|---------------------------------|----------------------------------|
+| List of all pages  | `GET`            | `/pages`        | None                            | None                             |
+| Show one page      | `GET`            | `/pages/:id`    | `id=[Mongo _id of the Page]`    | None                             |
 
-* **URL**
+**Sections grouping links**
 
-  /users/:id
+| Purpose            | Method           | Endpoint        | URL Params                      | Data Params                      |
+|--------------------|------------------|-----------------|---------------------------------|----------------------------------|
+| Show one section   | `GET`            | `/sections/:id` | `id=[Mongo _id of the Section]` | None                             |
+| Update one section | `PUT` or `PATCH` | `/sections/:id` | `id=[Mongo _id of the Section]` | `name=[New name of the section]` |
 
-* **Method:**
+**Links in the side bar**
 
-  `GET`
-  
-*  **URL Params**
+| Purpose            | Method           | Endpoint        | URL Params                      | Data Params                      |
+|--------------------|------------------|-----------------|---------------------------------|----------------------------------|
+| Show one link      | `GET`            | `/links/:id`    | `id=[Mongo _id of the link]`    | None                             |
+| Update one link    | `PUT` or `PATCH` | `/links/:id`    | `id=[Mongo _id of the link]`    | `name=[New name of the link]`    |
+| Delete one link    | `DELETE`         | `/links/:id`    | `id=[Mongo _id of the link]`    | `name=[New name of the link]`    |
+| Create one link    | `POST`           | `/links`        | None                            | `name=[Text for the link]`<br/>`url=[Url of the link]`<br/>`id=[Mongo _id of the Section]` |
 
-   **Required:**
- 
-   * `id=[Mongo DB identifier of the Link to look up]`
+**Business Information**
 
-* **Data Params**
+| Purpose            | Method           | Endpoint        | URL Params                      | Data Params                      |
+|--------------------|------------------|-----------------|---------------------------------|----------------------------------|
+| Show information   | `GET`            | `/info`         | None                            | None                             |
+| Update information | `PUT` or `PATCH` | `/info`         | None                            | `footer_info`<br />`childcare_info`<br />`hbb_info`<br/>`accident_info`<br/>See below for more details |
 
-  None
+```js
+{
+  footer_info: {
+    website: {
+      name: "Amazon Underwriting Pty Ltd",
+      url: "https://www.amazonunderwriting.com.au/index.html"
+    },
+    address: "52 Chisholm Street, Darlinghurst NSW 2010",
+    AFSL: "482029",
+    ABN: "17 605 879 507"
+  }
+}
+```
+or
+```js
+{
+  childcare_info: {
+    tel: "(02) 9357 1798",
+    email: "gida@amazonunderwriting.com.au"
+  }
+}
+```
+or
+```js
+{
+  hbb_info: {
+    tel: "(02) 9357 1798 (press line 2)",
+    email: "info@amazonunderwriting.com.au"
+  },
+}
+```
+or
+```js
+{
+  accident_info: {
+    tel: "(02) 9357 1798",
+    email: "toni@amazonunderwriting.com.au"
+  }
+}
+```
+or
+```js
+{
+  contact_info: {
+    tel: "+61 2 9357 1798",
+    email: "info@amazonunderwriting.com.au"
+  }
+}
+```
+
+**Newsletter data**
+
+| Purpose            | Method           | Endpoint        | URL Params                      | Data Params                      |
+|--------------------|------------------|-----------------|---------------------------------|----------------------------------|
+| Show one News      | `GET`            | `/news/:id`    | `id=[Mongo _id of the news]`    | None                             |
+| Update one News    | `PUT` or `PATCH` | `/news/:id`    | `id=[Mongo _id of the news]`    | `name=[New name of the link]`    |
+| Delete one News    | `DELETE`         | `/news/:id`    | `id=[Mongo _id of the news]`    | `name=[New name of the link]`    |
+| Create one News    | `POST`           | `/news`        | None                            | `name=[Text for the link]`<br/>`url=[Url of the link]`<br/>`id=[Mongo _id of the Section]` |
+
+---
+
+### Responses Documentation:
 
 * **Success Response:**
-  Code: `200`
-  Content:
+
+  * Code: `200`
 ```js
 {
   _id: "5e2690be73e08ade5954dbd5",
@@ -44,175 +118,17 @@ Returns json data about a single link.
 ```
  
 * **Error Response:**
-  Code: 404 NOT FOUND
-  Content: `{ error : "Link doesn't exist" }`
 
-* **Sample Call:**
+  * Code: `404`
+  ```js
+  {
+    error: "Resource doesn't exist"
+  }
+  ```
 
-```js
-  axios.get("/links/5e2690be73e08ade5954dbe9")
-    .then(response => {
-      console.log(response.data);
-    })
-    .catch(error => {
-      console.log(error);
-    });
-```
-
-**Create Link**
-
-Returns json data about the newly created link.
-
-* **URL**
-
-  /users
-
-* **Method:**
-
-  `POST`
-  
-*  **URL Params**
-
-  None
-
-* **Data Params**
-
-   **Required:**
-
-   * `id=[Mongo DB identifier of the Section under which creating a Link]` 
-   * `name=[Text of the Link]`
-   * `url=[Url to be used as HREF]`
-
-* **Success Response:**
-  Code: `200`
-  Content:
-```js
-{
-  _id: "5e2690be73e08ade5954dbd5",
-  name: "Click here to download",
-  url: "http://www.domain.com.au/PDFs/filename.pdf"
-}
-```
- 
-* **Error Response:**
-  Code: 404 NOT FOUND
-  Content: `{ error : "Section doesn't exist" }`
-
-* **Sample Call:**
-
-```js
-axios.post('/links', {
-    _id: "5e2690be73e08ade5954dbd5",
-    name: "Click here to download",
-    url: "http://www.domain.com.au/PDFs/filename.pdf"
-  })
-  .then((response) => {
-    console.log(response);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-```
-
-**Update Link**
-
-Returns json data about a link with the updated state.
-
-* **URL**
-
-  /users/:id
-
-* **Method:**
-
-  `PUT` or `PATCH`
-  
-*  **URL Params**
-
-   * `id=[Mongo DB identifier of the Link to update]` 
-
-* **Data Params**
-
-   **Required:**
-
-   * `name=[New text for the Link]`
-   * `url=[New url to be used as HREF]`
-
-* **Success Response:**
-  Code: `200`
-  Content:
-```js
-{
-  _id: "5e2690be73e08ade5954dbd5",
-  name: "Click here to download",
-  url: "http://www.domain.com.au/PDFs/filename.pdf"
-}
-```
- 
-* **Error Response:**
-  Code: 404 NOT FOUND
-  Content: `{ error : "Link doesn't exist" }`
-
-* **Sample Call:**
-
-```js
-axios.put('/links/5e2690be73e08ade5954dbd5', {
-    name: "Click here to download",
-    url: "http://www.domain.com.au/PDFs/filename.pdf"
-  })
-  .then((response) => {
-    console.log(response);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-```
-
-
-**Delete Link**
-
-Returns json data about the deleted link.
-
-* **URL**
-
-  /users/:id
-
-* **Method:**
-
-  `DELETE`
-  
-*  **URL Params**
-
-   **Required:**
- 
-   * `id=[Mongo DB identifier of the Link to delete]`
-
-* **Data Params**
-
-  None
-
-* **Success Response:**
-  Code: `200`
-  Content:
-```js
-{
-  _id: "5e2690be73e08ade5954dbd5",
-  name: "Click here to download",
-  url: "http://www.domain.com.au/PDFs/filename.pdf"
-}
-```
- 
-* **Error Response:**
-  Code: 404 NOT FOUND
-  Content: `{ error : "Link doesn't exist" }`
-
-* **Sample Call:**
-
-```js
-  axios.delete("/links/5e2690be73e08ade5954dbe9")
-    .then(response => {
-      console.log(response.data);
-    })
-    .catch(error => {
-      console.log(error);
-    });
-```
+  * Code: `500`
+  ```js
+  {
+    error: "<Any error on the backend>"
+  }
+  ```
