@@ -28,7 +28,8 @@ async function create(req, res) {
       return res.status(500).json({ error : error.message });
     }
 
-    res.json(linkDoc)
+    // Redirecting to /pages to allow the front-end to refetch the entire pages data
+    res.redirect(`/pages`);
 
 }
 
@@ -78,7 +79,8 @@ async function show (req, res) {
     return res.status(500).json({ error : error.message });
   }
 
-  res.json(...linkDoc)
+  // Redirecting to /pages to allow the front-end to refetch the entire pages data
+  res.redirect(`/pages`);
 
 }
 
@@ -109,7 +111,8 @@ async function update(req, res) {
     return res.status(500).json({ error : error.message });
   }
 
-  res.json(linkDoc)
+  // Redirecting to /pages to allow the front-end to refetch the entire pages data
+  res.redirect(`/pages`);
 
 }
 
