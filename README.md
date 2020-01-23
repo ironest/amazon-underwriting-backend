@@ -118,17 +118,16 @@ or
 ```
  
 * **Error Response:**
-
   * Code: `404`
-  ```js
-  {
-    error: "Resource doesn't exist"
-  }
-  ```
+```js
+{
+  error: "Resource doesn't exist"
+}
+```
 
   * Code: `500`
-  ```js
-  {
-    error: "<Any error on the backend>"
-  }
-  ```
+```js
+{
+  error: "<Any error on the backend>"
+}
+```
