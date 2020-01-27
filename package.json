@@ -29,7 +29,8 @@
     "mongoose": "^5.8.9",
     "mongoose-bcrypt": "^1.6.0",
     "passport": "^0.4.1",
-    "passport-jwt": "^4.0.0"
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
     "forever": "^2.0.0",
