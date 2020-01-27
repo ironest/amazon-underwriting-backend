@@ -12,10 +12,10 @@ const UserSchema = new Schema({
     type: String,
     required: true,
     trim: true,
-    // bcrypt: true
+    bcrypt: true
   }
 });
 
-// UserSchema.plugin(require("mongoose-bcrypt"));
+UserSchema.plugin(require("mongoose-bcrypt"));
 
 module.exports = UserSchema;
