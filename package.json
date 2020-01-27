@@ -24,8 +24,12 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "method-override": "^3.0.0",
-    "mongoose": "^5.8.9"
+    "mongoose": "^5.8.9",
+    "mongoose-bcrypt": "^1.6.0",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0"
   },
   "devDependencies": {
     "forever": "^2.0.0",
