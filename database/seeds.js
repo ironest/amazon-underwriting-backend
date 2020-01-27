@@ -5,6 +5,14 @@ require("./connect");
 const PageModel = require('./../database/models/page_model');
 const InfoModel = require('./../database/models/info_model');
 const NewsModel = require('./../database/models/news_model');
+const UserModel = require('./../database/models/user_model');
+
+const users = [
+    {
+        email: "user@domain.com",
+        password: "password"
+    }
+]
 
 const news = [
   {
@@ -174,6 +182,12 @@ async function populateDB(){
     await InfoModel.deleteMany();
     await PageModel.deleteMany();
     await NewsModel.deleteMany();
+    await UserModel.deleteMany();
+
+    for (let user of users) {
+        await UserModel.create( user )
+          .catch(err => console.log(`User creation returned: ${err}`))
+    }
 
     for (let post of news) {
       await NewsModel.create( post )
