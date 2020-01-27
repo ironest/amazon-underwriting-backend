@@ -4,13 +4,13 @@ const NewsController = require("../controllers/news_controller");
 
 router.get("/", NewsController.index);
 
-router.post("/", NewsController.create);
+router.post("/", passport.authenticate('jwt', {session: false}), NewsController.create);
 
-router.delete("/:id", NewsController.destroy);
+router.delete("/:id", passport.authenticate('jwt', {session: false}), NewsController.destroy);
 
-router.patch("/:id", NewsController.update);
+router.patch("/:id", passport.authenticate('jwt', {session: false}), NewsController.update);
 
-router.put("/:id", NewsController.update);
+router.put("/:id", passport.authenticate('jwt', {session: false}), NewsController.update);
 
 router.get("/:id", NewsController.show);
 
