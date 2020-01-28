@@ -17,18 +17,18 @@ passport.deserializeUser(async (id, done) => {
 });
 
 passport.use(new LocalStrategy({
-  usernameField: "email"
-}, 
-async (email, password, done) => {
-  const user = await UserModel.findOne({ email })
+    usernameField: "email"
+  }, 
+  async (email, password, done) => {
+    const user = await UserModel.findOne({ email })
       .catch(done);
   
-  if (!user || !user.verifyPasswordSync(password)) {
+    if (!user || !user.verifyPasswordSync(password)) {
       return done(null, false);
-  }
+    }
 
-  return done(null, user);
-}
+    return done(null, user);
+  }
 ));
 
 passport.use(new JwtStrategy({
