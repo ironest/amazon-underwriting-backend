@@ -25,12 +25,31 @@ router.post("/login",
         password: Joi.string().required()
     }
   }),
-  passport.authenticate("local", {
-    failureRedirect: "/login",
-    session: false
-  }),
+  passport.authenticate("local",
+    {
+      session: false
+    }
+  ),
   AuthController.loginCreate
 );
+
+// router.post('/login',
+//   function(req, res, next) {
+//     passport.authenticate('local', function(err, user, info) {
+//       if (err) {
+//         return next(err);
+//       }
+//       if (!user) {
+//         console.log("Sending wrong user or password");
+//         return res.status(401).json({ error: "Wrong user or password" });
+//       }
+//       console.log("All good, proceeding with next middleware");
+//       console.log(user);
+//       req.user = user;
+//       next();
+//   })(req, res, next);
+// }, AuthController.loginCreate);
+
 
 router.get("/logout", AuthController.logout);
 
