@@ -1,9 +1,7 @@
-const UserModel = require("./../database/models/user_model");
-const jwt = require("jsonwebtoken");
+const JWTService = require("./../services/jwt_service");
 
 function loginCreate(req, res) {
-  const token = jwt.sign({ sub: req.user._id }, process.env.JWT_SECRET);
-  // res.cookie("jwt", token);
+  const token = JWTService.generateToken(user);
   res.json(token);
 }
 
