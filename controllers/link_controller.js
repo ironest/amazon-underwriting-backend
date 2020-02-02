@@ -1,14 +1,18 @@
 const PageModel = require("./../database/models/page_model");
 const {getMetaDataSubDocument} = require("../utility/pageDoc");
+const S3Service = require("./../services/file_upload");
 
 async function create(req, res) {
-    let { name, url, id: sectionId } = req.body;
-    url = "url";
-    let link = { name, url };
+
+    const url = await S3Service.upload(req, res);
+
+    let { name, id: sectionId } = req.body;
+    let link = { name , url};
 
     let pageDoc;
     try {
       pageDoc = await PageModel.findOne({"sections._id": sectionId });
+
     } catch (error) {
       return res.status(500).json({ error : error.message });
     }
@@ -23,6 +27,7 @@ async function create(req, res) {
       section.links.push(link);
       await pageDoc.save();
     } catch (error) {
+      console.log(error);
       return res.status(500).json({ error : error.message });
     }
 
