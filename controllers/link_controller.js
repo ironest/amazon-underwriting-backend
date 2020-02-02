@@ -3,6 +3,7 @@ const {getMetaDataSubDocument} = require("../utility/pageDoc");
 
 async function create(req, res) {
     let { name, url, id: sectionId } = req.body;
+    url = "url";
     let link = { name, url };
 
     let pageDoc;
@@ -16,13 +17,10 @@ async function create(req, res) {
       return res.status(404).json({ error : "Section doesn't exist" });
     };
 
-    // let section = getSubDocument([pageDoc], sectionId);
-    let {parentDoc: section} = getMetaDataSubDocument([pageDoc], sectionId);
+    let {subDoc: section} = getMetaDataSubDocument([pageDoc], sectionId);
 
-    let linkDoc;
     try {
       section.links.push(link);
-      linkDoc = section.links[section.links.length - 1];
       await pageDoc.save();
     } catch (error) {
       return res.status(500).json({ error : error.message });
@@ -80,7 +78,7 @@ async function show (req, res) {
   }
 
   // Redirecting to /pages to allow the front-end to refetch the entire pages data
-  res.redirect(`/pages`);
+  res.redirect(303, `/pages`);
 
 }
 
@@ -112,7 +110,7 @@ async function update(req, res) {
   }
 
   // Redirecting to /pages to allow the front-end to refetch the entire pages data
-  res.redirect(`/pages`);
+  res.redirect(303, `/pages`);
 
 }
 
