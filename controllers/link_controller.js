@@ -89,8 +89,8 @@ async function show (req, res) {
 
 async function update(req, res) {
   let { id } = req.params;
-  let { name, url } = req.body;
-  let link = { name, url };
+  let { name } = req.body;
+  let link = { name };
 
   let pageDoc;
   try {
@@ -108,9 +108,10 @@ async function update(req, res) {
 
   try {
     linkDoc.name = link.name;
-    linkDoc.url = link.url;
+    // linkDoc.url = link.url ? link.url : linkDoc.url;
     await pageDoc.save();
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ error : error.message });
   }
 
