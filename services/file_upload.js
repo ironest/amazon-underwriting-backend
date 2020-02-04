@@ -3,7 +3,7 @@ const fs = require('fs');
 
 require("dotenv").config();
 
-async function upload(req, res) {
+async function upload(req, res, mediaType) {
 
   aws.config.setPromisesDependency();
   aws.config.update({
@@ -17,7 +17,7 @@ async function upload(req, res) {
     ACL: 'public-read',
     Bucket: process.env.AWS_BUCKET_NAME,
     Body: fs.createReadStream(req.file.path),
-    Key: `docs/${req.file.originalname}`
+    Key: `${mediaType}/${req.file.originalname}`
   };
 
   let response;
