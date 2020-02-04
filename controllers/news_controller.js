@@ -39,7 +39,7 @@ async function destroy (req, res) {
     return res.status(404).json({ error : "News doesn't exist" });
   };
 
-  res.redirect('/news') // Redirect the user to the index page of all the news
+  res.redirect(303, '/news') // Redirect the user to the index page of all the news
 
 }
 
@@ -69,8 +69,8 @@ async function update(req, res) {
   let newsDoc;
 
   try {
-    newsDoc = await NewsModel.findByIdAndUpdate(
-      id, // what to match 
+    newsDoc = await NewsModel.updateOne(
+      {_id: id}, // what to match 
       { period, title, paragraph, button, link, image }, // new data
       { omitUndefined: true } // true = ignore undefined data
     )
@@ -82,7 +82,7 @@ async function update(req, res) {
     return res.status(404).json({ error : "News doesn't exist" });
   };
 
-  res.redirect(`/news`); // Redirect to /news/
+  res.redirect(303, `/news`); // Redirect to /news/
 
 }
 
