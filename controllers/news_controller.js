@@ -12,10 +12,10 @@ async function index (req, res) {
 
 async function create (req, res) {
 
-  let { period, title, paragraph, button, link } = req.body // Destructure infos off req.body
+  let { period, title, paragraph, button, link, image } = req.body // Destructure infos off req.body
 
   try {
-    await NewsModel.create({ period, title, paragraph, button, link }) // Creating the author
+    await NewsModel.create({ period, title, paragraph, button, link, image }) // Creating the author
   } catch (error) {
     return res.status(500).json({ error : error.message });
   }
@@ -64,14 +64,14 @@ async function update(req, res) {
   //updates the resource
 
   let { id } = req.params  // Destructure the id off the params.
-  let { period, title, paragraph, button, link } = req.body // Destructure infos off req.body
+  let { period, title, paragraph, button, link, image } = req.body // Destructure infos off req.body
 
   let newsDoc;
 
   try {
     newsDoc = await NewsModel.findByIdAndUpdate(
       id, // what to match 
-      { period, title, paragraph, button, link }, // new data
+      { period, title, paragraph, button, link, image }, // new data
       { omitUndefined: true } // true = ignore undefined data
     )
   } catch (error) {

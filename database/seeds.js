@@ -17,24 +17,35 @@ const users = [
 const news = [
   {
     period: "201912",
-    title: "Odio morbi quis!",
-    paragraph: "Metus dictum at tempor commodo ullamcorper a lacus. Sed adipiscing diam donec adipiscing. Odio morbi quis commodo odio. Habitant morbi tristique senectus et netus et malesuada fames ac. Viverra vitae congue eu consequat ac felis",
+    title: "Is your castle protected?",
+    paragraph: "Underinsurance is already a real problem for regular domestic householders let alone if they operate a business from home! Underinsurance could become no insurance at all.",
     button: "Follow up",
-    link: "https://au.yahoo.com/"
+    link: "https://au.yahoo.com/",
+    image: "https://i.picsum.photos/id/1033/1000/400.jpg?blur=5"
   },
   {
     period: "202001",
     title: "Consectetur adipiscing elit!",
     paragraph: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     button: "Check online!",
-    link: "https://www.facebook.com/"
+    link: "https://www.facebook.com/",
+    image: "https://i.picsum.photos/id/134/1000/400.jpg?blur=5"
   },
   {
     period: "202002",
     title: "New working relationship!",
     paragraph: "The Amazon Underwriting team are very pleased to share the news of our latest working relationship! Insurx will assist us in continuing to deliver the highest standard of service for our clients.",
     button: "Read More",
-    link: "https://www.linkedin.com/company/insurx-tpa/"
+    link: "https://www.google.com",
+    image: "https://i.picsum.photos/id/160/1000/400.jpg"
+  },
+  {
+    period: "202003",
+    title: "Consectetur adipiscing elit!",
+    paragraph: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    button: "Read More",
+    link: "https://twitter.com",
+    image: "https://i.picsum.photos/id/171/1000/400.jpg"
   },
 ];
 
@@ -189,9 +200,12 @@ async function populateDB(){
           .catch(err => console.log(`User creation returned: ${err}`))
     }
 
+    let i = 0;
     for (let post of news) {
+      post.image = `${post.image}?random=${i}`
       await NewsModel.create( post )
         .catch(err => console.log(`News creation returned: ${err}`))
+      i++;
     }
     
     await InfoModel.create(contacts)

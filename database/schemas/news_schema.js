@@ -21,7 +21,11 @@ const NewsSchema = new Schema({
   link: {
     type: String,
     required: true
-  }
+  },
+  image: {
+    type: String,
+    required: true
+  },
 });
 
 module.exports = NewsSchema;

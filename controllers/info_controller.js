@@ -39,7 +39,7 @@ async function update(req, res) {
     return res.status(404).json({ error : "Information doesn't exist" });
   };
 
-  res.redirect(`/info`);
+  res.redirect(303, `/info`);
   
 }
 
