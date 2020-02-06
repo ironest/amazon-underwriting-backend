@@ -25,6 +25,7 @@ const app = require('../../app'); // the express server
         it('should create a new post', async () => {
             const res = await request(app)
             // return request(app)
+            // worked before changed the controller to require an image.
             .post("/news")
             .set("Authorization", `Bearer ${token}`)
             .send({

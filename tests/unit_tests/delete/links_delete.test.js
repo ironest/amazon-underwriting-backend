@@ -17,15 +17,14 @@ let token;
         });
     });
 
-describe("News file delete", () => {
-    it.only('Should delete a news file with ObjectId 5e3b8831d270a049d6cbe8aa', async () => {
+    // name, id: sectionId
+describe("Link delete", () => {
+    it.only('Should delete a links file with ObjectId of 5e39f77038e66d4a3d22afdb', async () => {
         const res = await request(app)
-        // the /news/5e3b8831d270a049d6cbe8aa refers to the id of a specific file in MongoDB
-        // will not work unless specifying an objectId in MongoDB
-        .delete("/news/5e3b8831d270a049d6cbe8aa")
-        .set("Authorization", `Bearer ${token}`)
         console.log(res.body.name)
-        expect(res.statusCode).toBe(303)
+        .delete("/links/5e39f77038e66d4a3d22afdb")
+        .set("Authorization", `Bearer ${token}`)
+        expect(res.statusCode).toBe(200)
         
     })
 })
