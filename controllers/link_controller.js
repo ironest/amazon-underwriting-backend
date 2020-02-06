@@ -4,7 +4,7 @@ const S3Service = require("./../services/file_upload");
 
 async function create(req, res) {
 
-    const url = await S3Service.upload(req, res);
+    const url = await S3Service.upload(req, res, "pdf");
 
     let { name, id: sectionId } = req.body;
     let link = { name , url};

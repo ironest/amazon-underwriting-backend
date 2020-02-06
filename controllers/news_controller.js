@@ -1,4 +1,5 @@
 const NewsModel = require("./../database/models/news_model");
+const S3Service = require("./../services/file_upload");
 
 async function index (req, res) {
   let newsDocs
@@ -12,7 +13,9 @@ async function index (req, res) {
 
 async function create (req, res) {
 
-  let { period, title, paragraph, button, link, image } = req.body // Destructure infos off req.body
+  const image = await S3Service.upload(req, res, 'img');
+
+  let { period, title, paragraph, button, link } = req.body // Destructure infos off req.body
 
   try {
     await NewsModel.create({ period, title, paragraph, button, link, image }) // Creating the author
@@ -39,7 +42,7 @@ async function destroy (req, res) {
     return res.status(404).json({ error : "News doesn't exist" });
   };
 
-  res.redirect('/news') // Redirect the user to the index page of all the news
+  res.redirect(303, '/news') // Redirect the user to the index page of all the news
 
 }
 
@@ -63,15 +66,17 @@ async function show (req, res) {
 async function update(req, res) {
   //updates the resource
 
+  // const image = await S3Service.upload(req, res, 'img');
+
   let { id } = req.params  // Destructure the id off the params.
-  let { period, title, paragraph, button, link, image } = req.body // Destructure infos off req.body
+  let { period, title, paragraph, button, link } = req.body // Destructure infos off req.body
 
   let newsDoc;
 
   try {
-    newsDoc = await NewsModel.findByIdAndUpdate(
-      id, // what to match 
-      { period, title, paragraph, button, link, image }, // new data
+    newsDoc = await NewsModel.updateOne(
+      {_id: id}, // what to match 
+      { period, title, paragraph, button, link }, // new data
       { omitUndefined: true } // true = ignore undefined data
     )
   } catch (error) {
@@ -82,7 +87,7 @@ async function update(req, res) {
     return res.status(404).json({ error : "News doesn't exist" });
   };
 
-  res.redirect(`/news`); // Redirect to /news/
+  res.redirect(303, `/news`); // Redirect to /news/
 
 }
 
