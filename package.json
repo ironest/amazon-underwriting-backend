@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/ironest/amazon-underwriting-backend#readme",
   "dependencies": {
-    "aws-sdk": "^2.610.0",
+    "aws-sdk": "^2.814.0",
     "celebrate": "^11.0.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
